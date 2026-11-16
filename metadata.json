@@ -1,0 +1,6 @@
+{
+  "name": "JARVIS",
+  "description": "Personal AI assistant with voice interaction, multimodal vision, real-time web tools, tasks, notes, and cloud memory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

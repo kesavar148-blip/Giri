@@ -1,0 +1,280 @@
+{
+  "entities": {
+    "UserPreferences": {
+      "title": "UserPreferences",
+      "description": "Per-user JARVIS configuration, AI personality, wake word, and privacy permissions.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase user ID matching the document owner."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name."
+        },
+        "preferredName": {
+          "type": "string",
+          "description": "How JARVIS addresses the user."
+        },
+        "city": {
+          "type": "string",
+          "description": "Default city for weather telemetry."
+        },
+        "wakeWord": {
+          "type": "string",
+          "description": "Customizable wake phrase such as Hey Jarvis."
+        },
+        "personality": {
+          "type": "string",
+          "enum": ["butler", "tactical", "friendly", "architect"],
+          "description": "AI assistant persona preset."
+        },
+        "customInstructions": {
+          "type": "string",
+          "description": "Additional user-defined instructions for JARVIS."
+        },
+        "selectedModel": {
+          "type": "string",
+          "enum": ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-4-argon"],
+          "description": "Selected Gemini AI Logic model."
+        },
+        "memoryEnabled": {
+          "type": "boolean",
+          "description": "Permission flag allowing JARVIS to remember user preferences."
+        },
+        "autoSpeakEnabled": {
+          "type": "boolean",
+          "description": "Whether JARVIS speaks responses aloud via Text-to-Speech."
+        },
+        "confirmActionsEnabled": {
+          "type": "boolean",
+          "description": "Require explicit user confirmation before executing tool actions."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "preferredName",
+        "city",
+        "wakeWord",
+        "personality",
+        "customInstructions",
+        "selectedModel",
+        "memoryEnabled",
+        "autoSpeakEnabled",
+        "confirmActionsEnabled",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Persistent conversation history entry between the user and JARVIS.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "assistant"],
+          "description": "Message author role."
+        },
+        "content": {
+          "type": "string",
+          "description": "Message text content."
+        },
+        "attachmentLabel": {
+          "type": "string",
+          "description": "Optional label for attached image or document."
+        },
+        "modelUsed": {
+          "type": "string",
+          "description": "Gemini model identifier used to generate the message."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "role",
+        "content",
+        "attachmentLabel",
+        "modelUsed",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "JarvisTask": {
+      "title": "JarvisTask",
+      "description": "Personal to-do item and reminder managed by the user or JARVIS.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Task title."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional task details."
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Task priority level."
+        },
+        "dueLabel": {
+          "type": "string",
+          "description": "Optional reminder time or due label."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Completion state."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "notes",
+        "priority",
+        "dueLabel",
+        "completed",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "JarvisNote": {
+      "title": "JarvisNote",
+      "description": "Personal note saved by the user or summarized by JARVIS.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Note title."
+        },
+        "content": {
+          "type": "string",
+          "description": "Note body."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Category tag."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "content",
+        "tag",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "JarvisMemory": {
+      "title": "JarvisMemory",
+      "description": "User-approved remembered preference or personal fact.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID."
+        },
+        "key": {
+          "type": "string",
+          "description": "Memory preference label."
+        },
+        "value": {
+          "type": "string",
+          "description": "Remembered preference value."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "key",
+        "value",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPreferences" },
+      "description": "User preferences, AI settings, and permission toggles."
+    },
+    "/users/{userId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "User conversation history with JARVIS."
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/JarvisTask" },
+      "description": "User to-do tasks and reminders."
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/JarvisNote" },
+      "description": "User personal notes."
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/JarvisMemory" },
+      "description": "User-approved remembered preferences."
+    }
+  }
+}
